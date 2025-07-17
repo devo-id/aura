@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+@theme {
+  /* Core Aura palette */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* Aura-specific */
+  --color-aura-background: hsl(var(--aura-background));
+  --color-aura-surface: hsl(var(--aura-surface));
+  --color-aura-text-primary: hsl(var(--aura-text-primary));
+  --color-aura-text-secondary: hsl(var(--aura-text-secondary));
+  --color-aura-accent: hsl(var(--aura-accent));
+  --color-aura-accent-light: hsl(var(--aura-accent-light));
+  --color-aura-glass-background: hsl(var(--aura-glass-background));
+  --color-aura-glass-border: hsl(var(--aura-glass-border));
+
+  /* Priority colors */
+  --color-aura-priority-high: hsl(var(--aura-priority-high));
+  --color-aura-priority-medium: hsl(var(--aura-priority-medium));
+  --color-aura-priority-low: hsl(var(--aura-priority-low));
+
+  /* Typography & spacing */
+  --font-inter: var(--font-inter);
+  --radius: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --backdrop-blur-glass: 10px;
+}
+
+/* 2. Inject Aura variables and base styling (CORRECT) */
+@layer base {
+  :root {
+    /* Core Aura color palette */
+    --aura-background: 0 0% 7%;
+    --aura-surface: 0 0% 11%;
+    --aura-text-primary: 0 0% 92%;
+    --aura-text-secondary: 0 0% 53%;
+    --aura-accent: 258 60% 60%;
+    --aura-accent-light: 258 60% 70%;
+    --aura-glass-background: 0 0% 11% / 0.7;
+    --aura-glass-border: 0 0% 20% / 0.3;
+
+    /* Priority colors */
+    --aura-priority-high: 0 84% 60%;
+    --aura-priority-medium: 35 88% 55%;
+    --aura-priority-low: 142 69% 58%;
+
+    /* Semantic mapping */
+    --background: var(--aura-background);
+    --foreground: var(--aura-text-primary);
+    --card: var(--aura-surface);
+    --card-foreground: var(--aura-text-primary);
+    --primary: var(--aura-accent);
+    --primary-foreground: var(--aura-text-primary);
+    --secondary: var(--aura-surface);
+    --secondary-foreground: var(--aura-text-primary);
+    --muted: var(--aura-surface);
+    --muted-foreground: var(--aura-text-secondary);
+    --accent: var(--aura-accent);
+    --accent-foreground: var(--aura-text-primary);
+    --border: var(--aura-glass-border);
+    --input: var(--aura-surface);
+    --ring: var(--aura-accent);
+
+    /* Typography & layout */
+    --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+    --aura-widget-padding: 1.5rem;
+    --aura-border-radius-lg: 0.75rem;
+    --aura-border-radius-md: 0.5rem;
+    --aura-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --aura-scale-hover: 1.05;
+    --radius: var(--aura-border-radius-md);
+  }
+
+  /* Global base styles */
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-['Inter'];
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Aura components */
+  .aura-widget {
+    background: hsl(var(--aura-glass-background));
+    backdrop-filter: blur(var(--backdrop-blur-glass));
+    border: 1px solid hsl(var(--aura-glass-border));
+    border-radius: var(--aura-border-radius-lg);
+    padding: var(--aura-widget-padding);
+    transition: var(--aura-transition);
+  }
+  .aura-widget:hover {
+    border-color: hsl(var(--aura-accent) / 0.3);
+  }
+
+  .aura-button {
+    background: hsl(var(--aura-accent));
+    color: hsl(var(--aura-text-primary));
+    border: none;
+    border-radius: var(--aura-border-radius-md);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-inter);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--aura-transition);
+  }
+  .aura-button:hover {
+    background: hsl(var(--aura-accent-light));
+    transform: scale(var(--aura-scale-hover));
+  }
+  .aura-button:active {
+    transform: scale(0.98);
+  }
+
+  .aura-input {
+    background: hsl(var(--aura-surface));
+    border: 1px solid hsl(var(--aura-glass-border));
+    border-radius: var(--aura-border-radius-md);
+    color: hsl(var(--aura-text-primary));
+    padding: 0.75rem;
+    font-family: var(--font-inter);
+    font-size: 0.875rem;
+    outline: none;
+    transition: var(--aura-transition);
+  }
+  .aura-input:focus {
+    border-color: hsl(var(--aura-accent));
+    box-shadow: 0 0 0 2px hsl(var(--aura-accent) / 0.2);
+  }
+  .aura-input::placeholder {
+    color: hsl(var(--aura-text-secondary));
+  }
+}
+
+/* 3. Dark-mode variant (CORRECTED) */
+@variant dark (&.dark, .dark &);
+
+/* 4. Container component class (CORRECTED) */
+@layer components {
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 2rem;
+    @media (min-width: 1280px) {
+      max-width: 1200px;
+    }
+  }
+}
+
+/* 5. Animations (CORRECT) */
+@layer utilities {
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .animate-slide-in {
+    animation: slide-in 0.4s ease-out;
+  }
+
+  @keyframes bounce-gentle {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 5px hsl(var(--aura-accent) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px hsl(var(--aura-accent) / 0.6);
+    }
+  }
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
